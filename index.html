@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İyi ki Varsın Baba Yarım</title>
+
+
+<style>
+  html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+main {
+  width: 100%;
+  max-width: 760px;
+}
+
+.grid {
+  width: 100%;
+}
+
+.photo {
+  width: 100%;
+  min-width: 0;
+}
+  :root{
+    --paper:#f6f0e6;
+    --paper-dark:#ece2d0;
+    --ink:#3a2e26;
+    --rust:#b9542c;
+    --moss:#5c6e4a;
+    --gold:#c9942f;
+    --line:#d9cdb8;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  body{
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(185,84,44,0.05), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(92,110,74,0.06), transparent 45%);
+    color:var(--ink);
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  /* ---------- Intro overlay ---------- */
+  #intro{
+    position:fixed; inset:0; z-index:50;
+    background:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column;
+    cursor:pointer;
+    transition:opacity 0.9s ease, visibility 0.9s ease;
+  }
+  #intro.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+
+  .stamp{
+    width:120px; height:120px;
+    border:3px solid var(--rust);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:46px;
+    margin-bottom:28px;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.06); }
+  }
+
+  #intro h1{
+    font-size:clamp(22px, 4vw, 32px);
+    color:var(--ink);
+    text-align:center;
+    margin-bottom:10px;
+    letter-spacing:0.3px;
+  }
+  #intro p{
+    color:var(--rust);
+    font-style:italic;
+    font-size:15px;
+    letter-spacing:0.5px;
+  }
+
+  /* ---------- Main content ---------- */
+  main{
+    max-width:760px;
+    margin:0 auto;
+    padding:90px 24px 60px;
+  }
+
+  .eyebrow{
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:12px;
+    color:var(--moss);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin-bottom:14px;
+    opacity:0;
+    animation:riseIn 0.8s ease forwards;
+    animation-delay:0.1s;
+  }
+
+  h1.title{
+    text-align:center;
+    font-size:clamp(34px, 6vw, 54px);
+    line-height:1.15;
+    color:var(--ink);
+    margin-bottom:8px;
+    opacity:0;
+    animation:riseIn 0.9s ease forwards;
+    animation-delay:0.25s;
+  }
+  h1.title span{
+    color:var(--rust);
+    font-style:italic;
+  }
+
+  .date-line{
+    text-align:center;
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:13px;
+    color:#8a7c68;
+    letter-spacing:1px;
+    margin-bottom:50px;
+    opacity:0;
+    animation:riseIn 0.9s ease forwards;
+    animation-delay:0.4s;
+  }
+
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(16px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .divider{
+    width:60px; height:2px;
+    background:var(--gold);
+    margin:0 auto 50px;
+    opacity:0;
+    animation:riseIn 0.9s ease forwards;
+    animation-delay:0.5s;
+  }
+
+  /* ---------- Letter ---------- */
+  .letter{
+    background:var(--paper-dark);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:42px 36px;
+    margin-bottom:60px;
+    position:relative;
+    box-shadow:0 18px 40px -25px rgba(58,46,38,0.4);
+    opacity:0;
+    animation:riseIn 1s ease forwards;
+    animation-delay:0.6s;
+  }
+  .letter::before{
+    content:"";
+    position:absolute; top:-1px; left:32px;
+    width:46px; height:14px;
+    background:var(--gold);
+    opacity:0.85;
+    transform:rotate(-2deg);
+  }
+  .letter p{
+    font-size:17px;
+    line-height:1.85;
+    color:var(--ink);
+    margin-bottom:18px;
+  }
+  .letter p:last-child{ margin-bottom:0; }
+  .signature{
+    font-style:italic;
+    color:var(--rust);
+    text-align:right;
+    font-size:19px;
+    margin-top:24px !important;
+  }
+
+  /* ---------- Gallery ---------- */
+  section.gallery{
+    margin-bottom:60px;
+  }
+  .gallery h2{
+    text-align:center;
+    font-size:clamp(20px,3.4vw,26px);
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  .gallery .sub{
+    text-align:center;
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:13px;
+    color:#8a7c68;
+    margin-bottom:34px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+  }
+  @media (max-width:560px){
+    .grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+
+  .photo{
+    aspect-ratio:1/1;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:10px 10px 26px;
+    box-shadow:0 10px 24px -18px rgba(58,46,38,0.5);
+    transform:rotate(var(--r,0deg));
+    transition:transform 0.35s ease, box-shadow 0.35s ease;
+    display:flex;
+    flex-direction:column;
+    cursor:default;
+  }
+  .photo:nth-child(1){ --r:-3deg; }
+  .photo:nth-child(2){ --r:2deg; }
+  .photo:nth-child(3){ --r:-1.5deg; }
+  .photo:nth-child(4){ --r:1.5deg; }
+  .photo:nth-child(5){ --r:-2deg; }
+  .photo:nth-child(6){ --r:3deg; }
+
+  .photo:hover{
+    transform:rotate(0deg) scale(1.04);
+    box-shadow:0 18px 30px -16px rgba(58,46,38,0.55);
+    z-index:2;
+  }
+
+  .photo-frame{
+    flex:1;
+    background:
+      repeating-linear-gradient(135deg, #e9e0cf, #e9e0cf 8px, #e3d9c5 8px, #e3d9c5 16px);
+    border-radius:2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#a8997e;
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:11px;
+    text-align:center;
+    letter-spacing:0.4px;
+    padding:8px;
+  }
+  /* ---------- Footer note ---------- */
+  .closing{
+    text-align:center;
+    padding-top:10px;
+  }
+  .closing .heart{
+    font-size:30px;
+    margin-bottom:18px;
+    display:inline-block;
+    animation:beat 1.6s ease-in-out infinite;
+  }
+  @keyframes beat{
+    0%,100%{ transform:scale(1); }
+    25%{ transform:scale(1.15); }
+    40%{ transform:scale(1); }
+  }
+  .closing p{
+    font-size:20px;
+    color:var(--ink);
+    font-style:italic;
+    margin-bottom:6px;
+  }
+  .closing .small{
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:12px;
+    color:#a8997e;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+
+  /*  Confetti  */
+  .confetti-piece{
+    position:fixed;
+    top:-20px;
+    z-index:60;
+    pointer-events:none;
+    border-radius:1px;
+  }
+</style>
+</head>
+<body>
+
+  <div id="intro">
+    <div class="stamp">🎁</div>
+    <h1>Baba yarım bu sürprizi sana hazırladım.</h1>
+    <p>açmak için dokun</p>
+  </div>
+
+  <main>
+    <p class="eyebrow">21 Haziran · Babalar Günü</p>
+    <h1 class="title">İyi ki <span>Varsın</span><br>Baba yarım</h1>
+    <p class="date-line"></p>
+    <div class="divider"></div>
+
+    <div class="letter">
+      <p>Baba yarım, ağabeyim, yeğenlerimin babası, bugün senin günün, her gün senin günün. Kimi zaman yanlış anlaşılmalar olsa da , kimi zaman iletişim kurmayı beceremesek de, kimi zaman birbirimizden uzaklaşsak da sen benim baba yarım, abimsin. Seninle paylaştığımız eğlenceli anları, yaptığın şaklabanlıkları ve bana verdiğin ilgi ve değeri hiç unutmayacağım. kalbimin bi köşesinde hep olacaksın.</p>
+      <p>Bunların hepsi için çok müteşekkirim.</p>
+      <p>İyi ki varsın. İyi ki benim abimsin, baba yarım.</p>
+      <p class="signature">Seni çok seven kız kardeşin Ayşe</p>
+    </div>
+
+    <section class="gallery">
+      <h2>Birlikte Biriktirdiklerimiz</h2>
+      <p class="sub">ich liebe dich mein bruder</p>
+      <div class="grid">
+        <div class="photo">
+          <div class="photo-frame"><img src="./img1.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
+        </div>
+        <div class="photo">
+          <div class="photo-frame"><img src="./img2.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
+        </div>
+        <div class="photo">
+          <div class="photo-frame"><img src="./img0.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
+        </div>
+        <div class="photo">
+          <div class="photo-frame"><img src="./img3.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
+        </div>
+        <div class="photo">
+          <div class="photo-frame"><img src="./img.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
+        </div>
+        <div class="photo">
+          <div class="photo-frame"><img src="./img4.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="closing">
+      <span class="heart">❤️</span>
+      <p>Babalar Günün Kutlu Olsun -Baba Yarım</p>
+      <p class="small">Seni seviyorum</p>
+    </div>
+  </main>
+
+<script>
+  const intro = document.getElementById('intro');
+
+  function fireConfetti(){
+    const colors = ['#b9542c', '#c9942f', '#5c6e4a', '#3a2e26'];
+    for(let i=0; i<60; i++){
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const size = 6 + Math.random()*6;
+      piece.style.width = size + 'px';
+      piece.style.height = (size*0.4) + 'px';
+      piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+      piece.style.left = Math.random()*100 + 'vw';
+      const duration = 2.2 + Math.random()*1.6;
+      const rotateEnd = 360 + Math.random()*720;
+      piece.animate([
+        { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+        { transform: `translateY(100vh) rotate(${rotateEnd}deg)`, opacity: 0.9 }
+      ], {
+        duration: duration*1000,
+        easing: 'cubic-bezier(.25,.46,.45,.94)'
+      });
+      document.body.appendChild(piece);
+      setTimeout(()=> piece.remove(), duration*1000 + 100);
+    }
+  }
+
+  intro.addEventListener('click', () => {
+    intro.classList.add('hide');
+    fireConfetti();
+    setTimeout(fireConfetti, 500);
+  });
+</script>
+
+</body>
+</html>
